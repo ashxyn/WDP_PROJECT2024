@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products - K-Beads Bracelet Shop</title>
+  <link rel="stylesheet" href="styles.css"> 
+  <style>
+   body {
+      margin: 0;
+      padding: 0;
+      position: relative; 
+      min-height: 100vh; 
+      background-color: #B2BEB5;
+    }
+
+    header {
+      background-color: #D3D3D3;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin: 0 10px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    nav ul li a.active {
+      color: green;
+    }
+
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .product-item {
+      width: 250px;
+      margin: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+      background-color: #5F8575; 
+      color: #D3D3D3;
+    }
+
+    .product-item img {
+      width: 100%;
+      height: auto;
+    }
+
+    .add-to-cart {
+      background-color: #B2BEB5;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .add-to-cart:hover {
+      background-color: #9FE2BF;
+    }
+
+    .checkout-btn {
+      background-color: #5F8575;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      position: fixed;
+      top: 170px;
+      right: 20px;
+      z-index: 999; 
+    }
+
+    .checkout-btn:hover {
+      background-color: #B2BEB5;
+    }
+
+    .receipt-container {
+      background-color: #E5E4E2; 
+      padding: 20px;
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>K-Beads Bracelet Shop</h1>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+	 <li><a href="about.html">About Us</a></li>
+    <li><a href="products.html"class="active">Products</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+    <li><a href="registration.html">Registration</a></li>
+  </ul>
+</nav>
+
+<section class="product-container">
+  <div class="product-item">
+    <img src="bracelet1.jpg" alt="Product 1">
+    <h3>Product 1</h3>
+    <p>Taehyung Inspired Beaded Bracelet</p>
+    <p>$20</p>
+    <button class="add-to-cart" onclick="addToCart('Product 1', 20, 1)">Add to Cart</button> 
+  </div>
+  <div class="product-item">
+    <img src="bracelet2.jpg" alt="Product 2">
+    <h3>Product 2</h3>
+    <p>Lee Taeyong Inspired Beaded Bracelet</p>
+    <p>$25</p>
+    <button class="add-to-cart" onclick="addToCart('Product 2', 25, 1)">Add to Cart</button> 
+  </div>
+  <div class="product-item">
+    <img src="bracelet3.jpg" alt="Product 3">
+    <h3>Product 3</h3>
+    <p>IU Inspired Beaded Bracelet</p>
+    <p>$35</p>
+    <button class="add-to-cart" onclick="addToCart('Product 3', 35, 1)">Add to Cart</button> 
+  </div>
+  <div class="product-item">
+    <img src="bracelet4.jpg" alt="Product 4">
+    <h3>Product 4</h3>
+    <p>Hwang Hyunjin Beaded Bracelet</p>
+    <p>$15</p>
+    <button class="add-to-cart" onclick="addToCart('Product 4', 15, 1)">Add to Cart</button> 
+  </div>
+  <div class="product-item">
+    <img src="bracelet5.jpg" alt="Product 5">
+    <h3>Product 5</h3>
+    <p>Chou Tzuyu Beaded Bracelet</p>
+    <p>$40</p>
+    <button class="add-to-cart" onclick="addToCart('Product 5', 40, 1)">Add to Cart</button> 
+  </div>
+  <div class="product-item">
+    <img src="bracelet6.jpg" alt="Product 6">
+    <h3>Product 6</h3>
+    <p>Park Jimin Beaded Bracelet</p>
+    <p>$20</p>
+    <button class="add-to-cart" onclick="addToCart('Product 6', 20, 1)">Add to Cart</button>
+  </div>
+   <div class="product-item">
+    <img src="bracelet7.jpg" alt="Product 7">
+    <h3>Product 7</h3>
+    <p>Mark Lee Beaded Bracelet</p>
+    <p>$40</p>
+    <button class="add-to-cart" onclick="addToCart('Product 7', 40, 1)">Add to Cart</button> 
+  </div>
+   <div class="product-item">
+    <img src="bracelet8.jpg" alt="Product 8">
+    <h3>Product 8</h3>
+    <p>Kang Taehyun Beaded Bracelet</p>
+    <p>$15</p>
+    <button class="add-to-cart" onclick="addToCart('Product 8', 15, 1)">Add to Cart</button> 
+  </div>
+  
+  
+</section>
+
+<button class="checkout-btn" onclick="checkout()">Checkout</button> 
+
+<div class="receipt-container" id="receipt"></div> 
+
+<script>
+  // JavaScript
+  let cartItems = []; 
+
+  function addToCart(productName, price, quantity) {
+    let existingItem = cartItems.find(item => item.name === productName);
+
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        cartItems.push({ name: productName, price: price, quantity: quantity });
+    }
+	
+   
+  function quantityToText(quantity) {
+    if (quantity === 1) {
+        return "one";
+    } else if (quantity === 2) {
+        return "two";
+    } else if (quantity === 3) {
+        return "three";
+    } else {
+        return quantity.toString();
+    }
+  }
+
+	alert(quantityToText(quantity) + " " + productName + " added to cart!");
+
+
+  }
+
+  function checkout() {
+    generateReceipt();
+  }
+
+  function generateReceipt() {
+    let total = 0;
+    let receiptHTML = "<h2>Receipt</h2>";
+    receiptHTML += "";
+    cartItems.forEach(item => {
+      receiptHTML += "<li>" + item.name + " - Quantity: " + item.quantity + " - $" + (item.price * item.quantity) + "</li>";
+      total += item.price * item.quantity;
+    });
+    receiptHTML += "";
+    receiptHTML += "<h3>Total: $" + total + "</h3>";
+    document.getElementById("receipt").innerHTML = receiptHTML;
+  }
+</script>
+
+</body>
+</html>
